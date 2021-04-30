@@ -99,7 +99,7 @@ export default {
             const method = this.id ? 'put' : 'post'
             const id = this.user.id ? `${this.user.id}` : ''
             const params = { user: this.user }
-            axios[method](`${baseApiUrl}/api/v1/users${id}`, params)
+            axios[method](`${baseApiUrl}/api/v1/users/${id}`, params)
                 .then(() => {
                     this.$toasted.global.defaultSuccess()
                     this.reset()

@@ -1,17 +1,23 @@
 <template>
-    <div class="product-admin">
+    <div class="subcategory-admin">
         <b-form>
-            <input id="product-id" type="hidden" v-model="product.id" />
+            <input id="subcategory-id" type="hidden" v-model="subcategory.id" />
             <b-form-group v-if="mode === 'save'" 
-                label="Subcategoria:" label-for="subcategoryId">
-                <b-form-select id="subcategory_id"
-                    :options="subcategories" v-model="product.subcategory_id" />
+                label="Categoria:" label-for="categoryId">
+                <b-form-select id="category_id"
+                    :options="categories" v-model="subcategory.category_id" />
             </b-form-group>
-            <b-form-group label="Nome:" label-for="product-name">
-                <b-form-input id="product-name" type="text"
-                    v-model="product.name" required
+            <b-form-group label="Nome:" label-for="subcategory-name">
+                <b-form-input id="subcategory-name" type="text"
+                    v-model="subcategory.name" required
                     :readonly="mode === 'remove'"
-                    placeholder="Informe o Nome do Produto..." />
+                    placeholder="Informe o Nome da Subcategoria..." />
+            </b-form-group>
+            <b-form-group label="Descrição:" label-for="subcategory-description">
+                <b-form-input id="subcategory-description" type="text"
+                    v-model="subcategory.description" required
+                    :readonly="mode === 'remove'"
+                    placeholder="Informe uma Descrição para a Subcategoria..." />
             </b-form-group>
             <b-button variant="primary" v-if="mode === 'save'"
                 @click="save">Salvar</b-button>
@@ -20,12 +26,12 @@
             <b-button class="ml-2" @click="reset">Cancelar</b-button>
         </b-form>
         <hr>
-        <b-table hover striped :items="products" :fields="fields">
+        <b-table hover striped :items="subcategories" :fields="fields">
             <template slot="actions" slot-scope="data">
-                <b-button variant="warning" @click="loadProduct(data.item)" class="mr-2">
+                <b-button variant="warning" @click="loadSubcategory(data.item)" class="mr-2">
                     <i class="fa fa-pencil"></i>
                 </b-button>
-                <b-button variant="danger" @click="loadProduct(data.item, 'remove')">
+                <b-button variant="danger" @click="loadSubcategory(data.item, 'remove')">
                     <i class="fa fa-trash"></i>
                 </b-button>
             </template>
@@ -37,28 +43,28 @@
 import { baseApiUrl, showError } from '@/global'
 import axios from 'axios'
 export default {
-    name: 'ProductsAdmin',
+    name: 'SubcategoryAdmin',
     data: function() {
         return {
             mode: 'save',
-            product: {},
-            products: [],
+            subcategory: {},
+            categories: [],
             subcategories: [],
             fields: [
                 { key: 'id', label: 'Código', sortable: true },
                 { key: 'name', label: 'Nome', sortable: true },
+                { key: 'description', label: 'Descrição', sortable: true },
                 { key: 'category', label: 'Categoria', sortable: true },
-                { key: 'subcategory', label: 'Subcategoria', sortable: true },
                 { key: 'actions', label: 'Ações' }
             ]
         }
     },
     methods: {
-        loadProducts() {
-            const url = `${baseApiUrl}/api/v1/products`
+        loadCategories() {
+            const url = `${baseApiUrl}/api/v1/categories`
             axios.get(url).then(res => {
-                this.products = res.data.map(product => {
-                    return { ...product, value: product.id }
+                this.categories = res.data.map(category => {
+                    return { value: category.id, text: category.name }
                 })
             })
         },
@@ -67,19 +73,19 @@ export default {
             axios.get(url).then(res => {
                 // this.subcategories = res.data
                 this.subcategories = res.data.map(subcategory => {
-                    return { value: subcategory.id, text: subcategory.name }
+                    return { ...subcategory, value: subcategory.id }
                 })
             })
         },
         reset() {
             this.mode = 'save'
-            this.product = {}
-            this.loadProducts()
+            this.subcategory = {}
+            this.loadSubcategories()
         },
         save() {
-            const method = this.product.id ? 'put' : 'post'
-            const id = this.product.id ? `/${this.product.id}` : ''
-            axios[method](`${baseApiUrl}/api/v1/products/${id}`, this.product)
+            const method = this.subcategory.id ? 'put' : 'post'
+            const id = this.subcategory.id ? `/${this.subcategory.id}` : ''
+            axios[method](`${baseApiUrl}/api/v1/subcategories/${id}`, this.subcategory)
                 .then(() => {
                     this.$toasted.global.defaultSuccess()
                     this.reset()
@@ -87,22 +93,22 @@ export default {
                 .catch(showError)
         },
         remove() {
-            const id = this.product.id
-            axios.delete(`${baseApiUrl}/api/v1/products/${id}`)
+            const id = this.subcategory.id
+            axios.delete(`${baseApiUrl}/api/v1/subcategories/${id}`)
                 .then(() => {
                     this.$toasted.global.defaultSuccess()
                     this.reset()
                 })
                 .catch(showError)
         },
-        loadProduct(product, mode = 'save') {
+        loadSubcategory(subcategory, mode = 'save') {
             this.mode = mode
-            this.product = { ...product }
+            this.subcategory = { ...subcategory }
         }
     },
     mounted() {
         this.loadSubcategories()
-        this.loadProducts()
+        this.loadCategories()
     }
 }
 </script>

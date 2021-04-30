@@ -8,6 +8,9 @@
                     <b-tab title="Categorias" active>
                         <CategoryAdmin />
                     </b-tab>
+                    <b-tab title="Subcategorias" active>
+                        <SubcategoryAdmin />
+                    </b-tab>
                     <b-tab title="Produtos" active>
                         <ProductAdmin />
                     </b-tab>
@@ -23,12 +26,13 @@
 <script>
 import PageTitle from '@/components/template/PageTitle'
 import CategoryAdmin from './CategoryAdmin'
+import SubcategoryAdmin from './SubcategoryAdmin'
 import ProductAdmin from './ProductAdmin'
 import UserAdmin from './UserAdmin'
 
 export default {
     name: 'AdminPages',
-    components: { PageTitle, CategoryAdmin, ProductAdmin, UserAdmin },
+    components: { PageTitle, CategoryAdmin, SubcategoryAdmin, ProductAdmin, UserAdmin },
 
 }
 </script>
