@@ -1,7 +1,7 @@
 import Vue from 'vue'
 
 export const userKey = '__wnk_user'
-export const baseApiUrl = 'https://watashi-no-kaimono-back-end.herokuapp.com '
+export const baseApiUrl = 'https://watashi-no-kaimono-back-end.herokuapp.com'
 
 export function showError(e) {
     if(e && e.response && e.response.data) {
