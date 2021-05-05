@@ -5,8 +5,10 @@
         <div class="stats">
             <Stat title="Categorias" :value="stat.categories"
                 icon="fa fa-folder" color="#d54d50" />
-            <Stat title="Artigos" :value="stat.products"
-                icon="fa fa-file" color="#3bc480" />
+            <Stat title="Subcategorias" :value="stat.subcategories"
+                icon="fa fa-file" color="#d54d50" />
+            <Stat title="Produtos" :value="stat.products"
+                icon="fa fa-list" color="#3bc480" />
             <Stat title="Usuários" :value="stat.users"
                 icon="fa fa-user" color="#3282cd" />
         </div>

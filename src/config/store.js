@@ -21,10 +21,8 @@ export default new Vuex.Store({
             } else {
                 state.isMenuVisible = isVisible
             }
-
-            console.log('toggleMenu = ' + state.isMenuVIsible)
         },
-        setUser(state, user) {  
+        setUser(state, user) {
             state.user = user
             if(user) {
                 axios.defaults.headers.common['Authorization'] = `Bearer ${user.token}`

@@ -11,6 +11,9 @@
             <router-link to="/admin">
                 <i class="fa fa-cogs"></i> Adminstração
             </router-link>
+            <router-link to="/shopping-list">
+                <i class="fa fa-list-ol"></i> Lista
+            </router-link>
             <a href @click.prevent="logout"><i class="fa fa-sign-out"></i> Sair</a>
         </div>
     </div>

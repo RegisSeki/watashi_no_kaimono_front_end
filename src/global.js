@@ -4,6 +4,7 @@ export const userKey = '__wnk_user'
 export const baseApiUrl = 'https://watashi-no-kaimono-back-end.herokuapp.com'
 
 export function showError(e) {
+    // console.log("ERRO", e)
     if(e && e.response && e.response.data) {
         Vue.toasted.global.defaultError({ msg : e.response.data })
     } else if(typeof e === 'string') {

@@ -13,6 +13,18 @@
                     :readonly="mode === 'remove'"
                     placeholder="Informe o Nome do Produto..." />
             </b-form-group>
+            <b-form-group label="Código:" label-for="product-code">
+                <b-form-input id="product-code" type="text"
+                    v-model="product.code" required
+                    :readonly="mode === 'remove'"
+                    placeholder="Informe o Código do Produto (Código Barras)..." />
+            </b-form-group>
+            <b-form-group label="Url Imagem do produto:" label-for="product-url_img">
+                <b-form-input id="product-url_img" type="text"
+                    v-model="product.url_img"
+                    :readonly="mode === 'remove'"
+                    placeholder="Informe a Url da imagem do Produto..." />
+            </b-form-group>
             <b-button variant="primary" v-if="mode === 'save'"
                 @click="save">Salvar</b-button>
             <b-button variant="danger" v-if="mode === 'remove'"
@@ -36,6 +48,7 @@
 <script>
 import { baseApiUrl, showError } from '@/global'
 import axios from 'axios'
+
 export default {
     name: 'ProductsAdmin',
     data: function() {
@@ -47,6 +60,7 @@ export default {
             fields: [
                 { key: 'id', label: 'Código', sortable: true },
                 { key: 'name', label: 'Nome', sortable: true },
+                { key: 'code', label: 'Código de Barras' },
                 { key: 'category', label: 'Categoria', sortable: true },
                 { key: 'subcategory', label: 'Subcategoria', sortable: true },
                 { key: 'actions', label: 'Ações' }
